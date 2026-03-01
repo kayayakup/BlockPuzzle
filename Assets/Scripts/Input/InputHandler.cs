@@ -171,6 +171,7 @@ public class InputHandler : MonoBehaviour
         else
         {
             block.EndDragReturn();
+            AudioManager.Instance?.PlayReturn();
         }
     }
 

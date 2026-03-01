@@ -40,8 +40,12 @@ public class Bootstrap : MonoBehaviour
         var uiMgr     = Spawn<UIManager>     ("UIManager");
         var spawner   = Spawn<BlockSpawner>  ("BlockSpawner");
         var input     = Spawn<InputHandler>  ("InputHandler");
-        var audioMgr  = Spawn<AudioManager>  ("AudioManager");
         var gameMgr   = Spawn<GameManager>   ("GameManager");
+
+        // AudioManager must already exist in the scene with clips assigned via Inspector.
+        var audioMgr  = FindAnyObjectByType<AudioManager>();
+        if (audioMgr == null)
+            Debug.LogWarning("[Bootstrap] AudioManager not found in scene! Add a GameObject with AudioManager component and assign audio clips.");
 
         // ── Initialize in dependency order ─────────────────────────────────
         poolMgr  .Initialize();
@@ -50,7 +54,7 @@ public class Bootstrap : MonoBehaviour
         uiMgr    .Initialize();
         spawner  .Initialize();
         input    .Initialize();
-        audioMgr .Initialize();   // builds procedural audio clips
+        audioMgr?.Initialize();   // safe — AudioManager inits itself in Awake too
         gameMgr  .Initialize();
     }
 

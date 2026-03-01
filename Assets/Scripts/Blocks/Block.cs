@@ -78,7 +78,7 @@ public class Block : MonoBehaviour
         SetCellSortOrder(10);
 
         DOTween.Kill(transform);
-        transform.DOScale(Vector3.one, 0.15f).SetEase(Ease.OutQuad);
+        transform.DOScale(Vector3.one, 0.08f).SetEase(Ease.OutQuad);
     }
 
     /// <summary>Returns the block to its tray slot smoothly.</summary>
@@ -174,7 +174,7 @@ public class Block : MonoBehaviour
     private void ResizeCollider()
     {
         float cs  = Constants.CELL_SIZE;
-        float pad = cs * 0.4f;   // extra touch area for mobile comfort
+        float pad = cs * 0.8f;   // extra touch area for mobile comfort
         _col.size   = new Vector2(Data.BBoxWidth  * cs + pad, Data.BBoxHeight * cs + pad);
         _col.offset = Vector2.zero;
     }

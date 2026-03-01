@@ -79,15 +79,15 @@ public static class LayoutConfig
         GridCenterY = midUsable;
 
         // ── Tray — sits in the bottom strip, centred vertically in that strip
-        TrayY = -OrthoSize + trayWorldH * 1.72f;
+        TrayY = -OrthoSize + trayWorldH * 1.1f;
 
         // Tray slot spacing: the three slots span ~80% of world width
-        TraySlotSpacing = WorldWidth * 0.80f / (Constants.TRAY_COUNT - 1);
+        TraySlotSpacing = WorldWidth * 0.65f / (Constants.TRAY_COUNT - 1);
         // Clamp to sensible range
         TraySlotSpacing = Mathf.Clamp(TraySlotSpacing, CellSize * 2.5f, CellSize * 5f);
 
-        // Tray blocks are drawn at a smaller scale so 3 fit side-by-side comfortably
-        TrayScale = Mathf.Clamp(WorldWidth * 0.14f / (CellSize * 2.5f), 0.30f, 0.55f);
+        // Tray blocks are drawn at a larger scale for easier touch interaction
+        TrayScale = Mathf.Clamp(WorldWidth * 0.14f / (CellSize * 2.5f), 0.50f, 0.75f);
 
         // Lift block above finger during drag
         DragOffsetY = 5.0f;
