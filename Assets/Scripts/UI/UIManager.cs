@@ -37,6 +37,10 @@ public class UIManager : MonoBehaviour
     // World-space background
     private GameObject _bgObj;
 
+    // Safe area
+    private RectTransform _safeAreaRT;
+    private Rect          _lastSafeArea;
+
     void Awake() => Instance = this;
 
     // ── Initialisation ────────────────────────────────────────────────────────
@@ -45,6 +49,7 @@ public class UIManager : MonoBehaviour
     {
         BuildWorldBackground();
         BuildCanvas();
+        BuildSafeArea();
         BuildTopBar();
         BuildScorePopup();
         BuildGameOverPanel();
@@ -169,12 +174,46 @@ public class UIManager : MonoBehaviour
         gameObject.AddComponent<GraphicRaycaster>();
     }
 
+    // ── Safe-area helper ──────────────────────────────────────────────────────
+
+    private void BuildSafeArea()
+    {
+        var safeGO = NewUIGO("SafeArea", _canvas.transform);
+        _safeAreaRT = safeGO.GetComponent<RectTransform>();
+        ApplySafeArea();
+    }
+
+    private void ApplySafeArea()
+    {
+        var safeArea = Screen.safeArea;
+        if (safeArea == _lastSafeArea) return;
+        _lastSafeArea = safeArea;
+
+        var canvasRT = _canvas.GetComponent<RectTransform>();
+        var canvasSize = canvasRT.rect.size;
+        if (canvasSize.x <= 0 || canvasSize.y <= 0) return;
+
+        var anchorMin = new Vector2(safeArea.x / Screen.width, safeArea.y / Screen.height);
+        var anchorMax = new Vector2((safeArea.x + safeArea.width) / Screen.width,
+                                    (safeArea.y + safeArea.height) / Screen.height);
+
+        _safeAreaRT.anchorMin = anchorMin;
+        _safeAreaRT.anchorMax = anchorMax;
+        _safeAreaRT.offsetMin = Vector2.zero;
+        _safeAreaRT.offsetMax = Vector2.zero;
+    }
+
+    private void Update()
+    {
+        if (_safeAreaRT != null) ApplySafeArea();
+    }
+
     // ── Top bar (crown + best + gear + score) ─────────────────────────────────
 
     private void BuildTopBar()
     {
-        // ── Invisible top-bar container (anchored to top) ─────────────────────
-        var barGO = NewUIGO("TopBar", _canvas.transform);
+        // ── Invisible top-bar container (anchored to top of safe area) ────────
+        var barGO = NewUIGO("TopBar", _safeAreaRT);
         var barRT = barGO.GetComponent<RectTransform>();
         AnchorStretchTop(barRT, 0f, 104f);
 
@@ -214,11 +253,11 @@ public class UIManager : MonoBehaviour
         _gearImg.preserveAspect = true;
 
         // ── Current score (large, centred, just below top bar) ─────────────────
-        var scoreGO = NewUIGO("ScoreLabel", _canvas.transform);
+        var scoreGO = NewUIGO("ScoreLabel", _safeAreaRT);
         var scoreRT = scoreGO.GetComponent<RectTransform>();
         scoreRT.anchorMin = scoreRT.anchorMax = new Vector2(0.5f, 1f);
         scoreRT.pivot     = new Vector2(0.5f, 1f);
-        scoreRT.anchoredPosition = new Vector2(0f, -160f);
+        scoreRT.anchoredPosition = new Vector2(0f, -130f);
         scoreRT.sizeDelta        = new Vector2(600f, 130f);
         _scoreTMP = scoreGO.AddComponent<TextMeshProUGUI>();
         ApplyTextStyle(_scoreTMP, "0", 108f, Color.white, FontStyles.Bold, TextAlignmentOptions.Center);

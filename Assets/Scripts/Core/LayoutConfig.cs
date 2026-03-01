@@ -52,7 +52,7 @@ public static class LayoutConfig
 
         // ── World height is fixed at 26 units (ortho = 13).
         // All other sizes derive from that + the actual aspect ratio.
-        OrthoSize   = 13f;
+        OrthoSize   = 15.5f;
         WorldHeight = OrthoSize * 2f;            // 26
         WorldWidth  = WorldHeight * aspect;      // 11.7 @ 1080×2400
 

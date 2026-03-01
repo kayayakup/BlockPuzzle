@@ -102,28 +102,61 @@ public static class TextureUtils
 
     private static Sprite BuildCrownSprite()
     {
-        const int W = 256, H = 200;
-        var tex = NewTex(W, H);
-        var px = new Color[W * H];
-
-        Color gold = new Color(1f, 0.77f, 0.03f, 1f);
-        Color highlight = new Color(1f, 0.94f, 0.59f, 1f);
-
-        for (int y = 0; y < H; y++)
+        int w = 72, h = 52;
+        var tex = new Texture2D(w, h, TextureFormat.ARGB32, false)
         {
-            for (int x = 0; x < W; x++)
-            {
-                // Burada basit bir SDF mantığıyla taç formunu pürüzsüzleştirebiliriz
-                // Şimdilik mevcut pikselleri yüksek netlikte çiziyoruz
-                float distToBase = (y < 60) ? 1 : 0; // Basit örnek, mevcut kodun üzerine AA ekliyoruz
-                px[y * W + x] = Color.clear; // ... (mevcut çizim mantığı pürüzsüzleştirildi)
-            }
+            filterMode = FilterMode.Bilinear,
+            wrapMode = TextureWrapMode.Clamp
+        };
+        var px = new Color32[w * h];
+        for (int i = 0; i < px.Length; i++) px[i] = new Color32(0, 0, 0, 0);
+
+        Color32 gold = new Color32(255, 196, 8, 255);
+        Color32 light = new Color32(255, 235, 130, 255);
+        Color32 dark = new Color32(200, 148, 0, 255);
+
+        void Set(int x, int y, Color32 c)
+        {
+            if (x >= 0 && x < w && y >= 0 && y < h) px[y * w + x] = c;
         }
-        // Taç ve Gear için mevcut karmaşık looplar yerine SDF formülleri daha iyidir
-        // Ancak hızlı çözüm için NewTex ayarları netliği kurtaracaktır.
-        tex.SetPixels(px);
+        void FillRect(int x0, int y0, int x1, int y1, Color32 c)
+        {
+            for (int yy = y0; yy <= y1; yy++)
+                for (int xx = x0; xx <= x1; xx++)
+                    Set(xx, yy, c);
+        }
+        void FillCircle(int cx, int cy, int r, Color32 c)
+        {
+            for (int dy = -r; dy <= r; dy++)
+                for (int dx = -r; dx <= r; dx++)
+                    if (dx * dx + dy * dy <= r * r) Set(cx + dx, cy + dy, c);
+        }
+
+        // Base strip (bottom 15 rows, full width)
+        FillRect(3, 0, w - 4, 14, gold);
+        FillRect(3, 12, w - 4, 14, light);
+        FillRect(3, 0, w - 4, 2, dark);
+
+        // Three triangular peaks
+        int[] apexX = { 9, w / 2, w - 10 };
+        int baseY = 15, topY = h - 7;
+
+        for (int i = 0; i < 3; i++)
+        {
+            int ax = apexX[i];
+            for (int yy = baseY; yy <= topY; yy++)
+            {
+                float t = (float)(yy - baseY) / (topY - baseY);
+                int hw = Mathf.Max(1, (int)(9f * (1f - t)));
+                for (int xx = ax - hw; xx <= ax + hw; xx++) Set(xx, yy, gold);
+            }
+            FillCircle(ax, topY, 5, gold);
+            FillCircle(ax, topY, 3, light);
+        }
+
+        tex.SetPixels32(px);
         tex.Apply();
-        return Sprite.Create(tex, new Rect(0, 0, W, H), new Vector2(0.5f, 0.5f), W);
+        return Sprite.Create(tex, new Rect(0, 0, w, h), new Vector2(0.5f, 0.5f), 100f);
     }
 
     private static Sprite BuildGearSprite()

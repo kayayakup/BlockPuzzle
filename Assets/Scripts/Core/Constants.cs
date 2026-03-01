@@ -31,7 +31,7 @@ public static class Constants
     public const float CELL_VISUAL_RATIO = 0.87f;  // sprite fills 87% of cell slot
 
     // ── Colours ───────────────────────────────────────────────────────────────
-    public static readonly Color BgColor          = new Color(0.118f, 0.467f, 0.808f);
+    public static readonly Color BgColor          = new Color(0.318f, 0.767f, 0.508f);
     public static readonly Color GridBgColor      = new Color(0.055f, 0.239f, 0.490f);
     public static readonly Color CellEmptyColor   = new Color(0.071f, 0.180f, 0.365f);
     public static readonly Color TrayBgColor      = new Color(0.040f, 0.170f, 0.370f);
