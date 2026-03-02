@@ -77,6 +77,10 @@ public class AudioManager : MonoBehaviour
         _bgSource              = gameObject.AddComponent<AudioSource>();
         _bgSource.playOnAwake  = false;
         _bgSource.volume       = 0.85f;
+
+        bool savedMute = PlayerPrefs.GetInt("BlockPuzzle_Muted", 0) == 1;
+        _sfxSource.mute = savedMute;
+        _bgSource.mute = savedMute;
     }
 
     // ── Public API ────────────────────────────────────────────────────────────
@@ -85,6 +89,17 @@ public class AudioManager : MonoBehaviour
     {
         if (clipPickup != null) _sfxSource.PlayOneShot(clipPickup, volumePickup);
     }
+
+    public void ToggleMute()
+    {
+        bool muted = !_sfxSource.mute;
+        _sfxSource.mute = muted;
+        _bgSource.mute = muted;
+        PlayerPrefs.SetInt("BlockPuzzle_Muted", muted ? 1 : 0);
+        PlayerPrefs.Save();
+    }
+
+    public bool IsMuted => _sfxSource.mute;
 
     public void PlayPlace()
     {

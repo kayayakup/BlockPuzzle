@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     {
         IsGameOver  = false;
         TotalPlaced = 0;
+
+        GoogleAdMobController.Instance.RestartScene();
     }
 
     // ── Public API ────────────────────────────────────────────────────────────
@@ -57,5 +59,7 @@ public class GameManager : MonoBehaviour
         IsGameOver = true;
         AudioManager.Instance?.PlayGameOver();
         UIManager.Instance.ShowGameOver(ScoreManager.Instance.CurrentScore);
+
+        GoogleAdMobController.Instance.ShowInterstitialAd();
     }
 }

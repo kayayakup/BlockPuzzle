@@ -252,6 +252,15 @@ public class UIManager : MonoBehaviour
         _gearImg.color   = new Color(0.85f, 0.90f, 1f, 0.90f);
         _gearImg.preserveAspect = true;
 
+        // Gear ikonuna Button ekle
+        var gearBtn = gearGO.AddComponent<Button>();
+        gearBtn.targetGraphic = _gearImg;
+        var gearColors = gearBtn.colors;
+        gearColors.highlightedColor = new Color(1f, 1f, 1f, 1f);
+        gearColors.pressedColor = new Color(0.6f, 0.6f, 0.6f, 1f);
+        gearBtn.colors = gearColors;
+        gearBtn.onClick.AddListener(OnGearClicked);
+
         // ── Current score (large, centred, just below top bar) ─────────────────
         var scoreGO = NewUIGO("ScoreLabel", _safeAreaRT);
         var scoreRT = scoreGO.GetComponent<RectTransform>();
@@ -261,6 +270,17 @@ public class UIManager : MonoBehaviour
         scoreRT.sizeDelta        = new Vector2(600f, 130f);
         _scoreTMP = scoreGO.AddComponent<TextMeshProUGUI>();
         ApplyTextStyle(_scoreTMP, "0", 108f, Color.white, FontStyles.Bold, TextAlignmentOptions.Center);
+    }
+
+    private void OnGearClicked()
+    {
+        var audio = AudioManager.Instance;
+        if (audio == null) return;
+        audio.ToggleMute();
+        // Sessizse ikonu soluklaştır, aktifse parlak göster
+        _gearImg.color = audio.IsMuted
+            ? new Color(0.5f, 0.5f, 0.5f, 0.55f)
+            : new Color(0.85f, 0.90f, 1f, 0.90f);
     }
 
     // ── Score pop-up ──────────────────────────────────────────────────────────

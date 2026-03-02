@@ -119,6 +119,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &407961418
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 407961420}
+  - component: {fileID: 407961419}
+  m_Layer: 0
+  m_Name: GoogleAdmob
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &407961419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407961418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68f6210bd9ba98249ab3db8527d10e6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GoogleAdMobController
+--- !u!4 &407961420
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407961418}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 58.22989, y: 2731.5198, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -256,6 +300,65 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &567876941
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 567876943}
+  - component: {fileID: 567876942}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &567876942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567876941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df398abcaa507d5448ab37dceccca19c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  clipPickup: {fileID: 8300000, guid: 072c1a7d39b806e4797f6d363748b01d, type: 3}
+  clipPlace: {fileID: 8300000, guid: 9324fa15cbf91c240b29a0aaa8981188, type: 3}
+  clipReturn: {fileID: 8300000, guid: 51b49d916a2d6614baf8edcb7cf83344, type: 3}
+  clipLineClear1: {fileID: 8300000, guid: 6ffcee1c7988d994095e6c6ad5421504, type: 3}
+  clipLineClear2: {fileID: 8300000, guid: d0a248895ffa3b24bbaf0191f34e5c28, type: 3}
+  clipScore: {fileID: 8300000, guid: 937ac6c170d76af4b849a5a1a590e246, type: 3}
+  clipSpawn: {fileID: 8300000, guid: fd5d4ab1616a88e4fba12ffbef49dd8a, type: 3}
+  clipGameOver: {fileID: 8300000, guid: e29a7a49dfc45f74db1a156bfa17d716, type: 3}
+  volumePickup: 0.8
+  volumePlace: 0.85
+  volumeReturn: 0.8
+  volumeClear: 1
+  volumeScore: 0.75
+  volumeSpawn: 0.65
+  volumeGameOver: 0.85
+--- !u!4 &567876943
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567876941}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 58.22989, y: 2731.5198, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,7 +453,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2096835252}
   - component: {fileID: 2096835253}
-  - component: {fileID: 2096835255}
   - component: {fileID: 2096835254}
   m_Layer: 0
   m_Name: Bootstrap
@@ -398,33 +500,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace8c7f9942624848a746e397facc525, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
---- !u!114 &2096835255
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2096835250}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df398abcaa507d5448ab37dceccca19c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
-  clipPickup: {fileID: 8300000, guid: 072c1a7d39b806e4797f6d363748b01d, type: 3}
-  clipPlace: {fileID: 8300000, guid: 9324fa15cbf91c240b29a0aaa8981188, type: 3}
-  clipReturn: {fileID: 8300000, guid: 51b49d916a2d6614baf8edcb7cf83344, type: 3}
-  clipLineClear1: {fileID: 8300000, guid: 6ffcee1c7988d994095e6c6ad5421504, type: 3}
-  clipLineClear2: {fileID: 8300000, guid: d0a248895ffa3b24bbaf0191f34e5c28, type: 3}
-  clipScore: {fileID: 8300000, guid: 937ac6c170d76af4b849a5a1a590e246, type: 3}
-  clipSpawn: {fileID: 8300000, guid: fd5d4ab1616a88e4fba12ffbef49dd8a, type: 3}
-  clipGameOver: {fileID: 8300000, guid: e29a7a49dfc45f74db1a156bfa17d716, type: 3}
-  volumePickup: 0.8
-  volumePlace: 0.85
-  volumeReturn: 0.8
-  volumeClear: 1
-  volumeScore: 0.75
-  volumeSpawn: 0.65
-  volumeGameOver: 0.85
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -432,3 +507,5 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 619394802}
   - {fileID: 2096835252}
+  - {fileID: 407961420}
+  - {fileID: 567876943}
